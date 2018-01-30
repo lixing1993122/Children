@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour {
 
     //点击下一个打开的界面类型
 	public static DialogType GetNextDialogType(DialogType dialogType){
-		if (dialogType == DialogType.ZhaoShuZi) {
+		if (dialogType == DialogType.PaoPao) {
 			return DialogType.RenShuZi;
 		} else {
 			return (DialogType)((int)dialogType + 1);

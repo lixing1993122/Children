@@ -10,7 +10,7 @@ public class TuZi : MonoBehaviour {
     //点击兔子
     public void OnClickTuZi() {
         if (canJump) {
-            rd.velocity = new Vector3(500, 1000, 0);
+            rd.velocity = new Vector3(0, 10, 0);
             canJump = false;
         }
     }

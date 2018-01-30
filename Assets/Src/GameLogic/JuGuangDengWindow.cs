@@ -8,6 +8,7 @@ public class JuGuangDengWindow : BaseWindow {
     private int[] randomArray = new int[4];
     private Animation ani;
     private Transform juGuangDengRT;
+    private Canvas canvas;
     protected override DialogType GetDialogType()
     {
         return DialogType.JuGuangDeng;
@@ -21,6 +22,7 @@ public class JuGuangDengWindow : BaseWindow {
         }
         ani = transform.Find("juguangdeng").GetComponent<Animation>();
         juGuangDengRT = transform.Find("juguangdeng").GetComponent<Transform>();
+        canvas = GetComponent<Canvas>();
     }
     //点击屏幕移动聚光灯
     protected override void Update() {
@@ -28,11 +30,14 @@ public class JuGuangDengWindow : BaseWindow {
         if (isWin) return;
         if (Input.GetMouseButton(0))
         {
-            Vector3 pos = juGuangDengRT.position;
+            Vector3 pos = juGuangDengRT.localPosition;
             Vector3 fromVector = Vector3.down;
-            Vector3 toVector = Input.mousePosition;            
+            Vector2 _pos = Vector2.one;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+                        Input.mousePosition, canvas.worldCamera, out _pos);
+            Vector3 toVector = _pos;            
             float angle = Vector3.Angle(fromVector, toVector-pos); //求出两向量之间的夹角  
-            juGuangDengRT.eulerAngles = new Vector3(0, 0, angle* (toVector.x - pos.x)/ Math.Abs(toVector.x - pos.x));
+            juGuangDengRT.localEulerAngles = new Vector3(0, 0, angle* (toVector.x - pos.x)/ Math.Abs(toVector.x - pos.x));
         }
     }
     //每次打开界面 给每个熊猫设置随机数的地方

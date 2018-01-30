@@ -8,6 +8,7 @@ public class YinTuZhangWindow : BaseWindow {
     private Transform yinZhangTrans;
     private Transform tuzhangParent;
     private List<GameObject> goList = new List<GameObject>();
+    private Canvas canvas;
     protected override DialogType GetDialogType()
     {
         return DialogType.YinTuZhang;
@@ -17,20 +18,32 @@ public class YinTuZhangWindow : BaseWindow {
         base.Awake();
         yinZhangTrans = transform.Find("yinzhang");
         tuzhangParent = transform.Find("g_tuzhang");
+        canvas = GetComponent<Canvas>();
     }
     void FixedUpdate() {
-        yinZhangTrans.transform.localPosition = Input.mousePosition;
+        Vector2 _pos = Vector2.one;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+                    Input.mousePosition, canvas.worldCamera, out _pos);
+        yinZhangTrans.transform.localPosition = _pos;
     }
     
     protected override void Refresh()
     {
         base.Refresh();
+        foreach (var item in goList)
+        {
+            Destroy(item);
+        }
         goList.Clear();
     }
 
     protected override void Clear()
     {
         base.Clear();
+        foreach (var item in goList)
+        {
+            Destroy(item);
+        }
         goList.Clear();
     }
 
@@ -40,7 +53,10 @@ public class YinTuZhangWindow : BaseWindow {
         GameObject go = new GameObject("yinzhang");
         go.transform.SetParent(tuzhangParent);
         go.transform.localScale = new Vector3(1, 1, 1);
-        go.transform.position = Input.mousePosition;
+        Vector2 _pos = Vector2.one;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+                    Input.mousePosition, canvas.worldCamera, out _pos);
+        go.transform.localPosition = _pos;
         Image image= go.AddComponent<Image>();
         go.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(58, 65);
         image.sprite = nums[GameMain.globalNum - 1];

@@ -47,6 +47,8 @@ public class TiZuQiuWindow : BaseWindow {
         {
             GameObject go = Instantiate(tempZuqiu) as GameObject;
             go.transform.SetParent(zuqiuTrans);
+            go.transform.localPosition = new Vector3(1, 1, 0);
+            go.transform.localScale = new Vector3(1, 1, 1);
             var script = go.GetComponent<ZuQiu>();
             script.parentWindow = this;
             goList.Add(go);

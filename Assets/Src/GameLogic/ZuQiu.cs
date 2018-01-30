@@ -19,8 +19,8 @@ public class ZuQiu : MonoBehaviour {
     public void OnClickZuQiu() {
         btn.enabled = false;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 100, 0);
-        rd.gravityScale = 50;
-        rd.velocity = new Vector3(500, 1000, 0);
+        rd.gravityScale = 1;
+        rd.velocity = new Vector3(5, 10, 0);
         parentWindow.SetCountImage();
     }
 }
